@@ -23,6 +23,7 @@ mobile operators around the world, the following charsets are supported:
  - Vodafone D2 (Similar to GSM alphabet; customizations for Vodafone D2 SMSCs)
  - Vodafone Turkey (Similar to GSM alphabet; customizations for Vodafone Turkey SMSCs)
  - T-Mobile NL (Similar to GSM alphabet; customizations for T-Mobile Netherlands)
+ - Locking Shift Character Set for Turkish language and Single Shift Character Set for Turkish language
 
 Contributors
 ------------
