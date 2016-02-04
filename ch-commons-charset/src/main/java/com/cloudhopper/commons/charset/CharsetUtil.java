@@ -55,6 +55,9 @@ public class CharsetUtil {
     // special charset for "T-Mobile Netherlands" SMSC that has a unique GSM mapping
     public static final String NAME_TMOBILENL_GSM = "TMOBILE-NL-GSM";
 
+    public static final String NAME_TURKISH_SINGLE_SHIFT = "TURKISH-SINGLE-SHIFT";
+    public static final String NAME_TURKISH_LOCKING_SHIFT = "TURKISH-LOCKING-SHIFT";
+
     public static final Charset CHARSET_ISO_8859_1 = new ISO88591Charset();
     public static final Charset CHARSET_ISO_8859_15 = new ISO885915Charset();
     public static final Charset CHARSET_GSM = new GSMCharset();
@@ -75,6 +78,8 @@ public class CharsetUtil {
     /** Alias for "AIRWIDE-IA5" */
     public static final Charset CHARSET_AIRWIDE_GSM = CHARSET_AIRWIDE_IA5;
     public static final Charset CHARSET_TMOBILENL_GSM = new TMobileNlGSMCharset();
+    public static final Charset CHARSET_TURKISH_SINGLE_SHIFT = new TurkishSingleShiftCharset();
+    public static final Charset CHARSET_TURKISH_LOCKING = new TurkishLockingShiftCharset();
 
     static {
         charsets = new HashMap<String,Charset>();
@@ -92,6 +97,8 @@ public class CharsetUtil {
         charsets.put(NAME_GSM8, CHARSET_GSM8);
         charsets.put(NAME_AIRWIDE_GSM, CHARSET_AIRWIDE_GSM);
         charsets.put(NAME_TMOBILENL_GSM, CHARSET_TMOBILENL_GSM);
+        charsets.put(NAME_TURKISH_SINGLE_SHIFT, CHARSET_TURKISH_SINGLE_SHIFT);
+        charsets.put(NAME_TURKISH_LOCKING_SHIFT, CHARSET_TURKISH_LOCKING);
     }
 
     static public HashMap<String,Charset> getCharsetMap() {
