@@ -23,6 +23,7 @@ package com.cloudhopper.commons.charset;
 
 // third party imports
 
+import com.cloudhopper.commons.util.HexUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -53,5 +54,25 @@ public class TurkishSingleShiftCharsetTest {
 
         // gsm char Æ
         Assert.assertEquals(true, TurkishSingleShiftCharset.canRepresent("Æ"));
+    }
+
+    @Test
+    public void encodingTest() throws Exception {
+        byte[] textBytes = CharsetUtil.encode("Test smpp ğışİ", CharsetUtil.CHARSET_TURKISH_SINGLE_SHIFT);
+        byte[] udh = HexUtil.toByteArray("03240101");
+
+        byte[] textBytesWithUdh = new byte[textBytes.length + udh.length];
+
+        // udh
+        System.arraycopy(udh, 0, textBytesWithUdh, 0, udh.length);
+
+        // message payload
+        System.arraycopy(textBytes, 0, textBytesWithUdh, udh.length, textBytes.length);
+
+
+        byte[] expected = HexUtil.toByteArray("032401015465737420736D7070201B671B691B731B49");
+
+        Assert.assertArrayEquals(expected, textBytesWithUdh);
+
     }
 }
