@@ -51,6 +51,34 @@ public class GSMBitPacker {
      * @return A new byte array containing the bytes in their packed form.
      */
     static public byte[] pack(byte[] unpacked) {
+        return  pack(unpacked, 0);
+    }
+
+    /**
+     * Pack a byte array according to the GSM bit-packing algorithm.
+     * The GSM specification defines a simple compression mechanism for its
+     * default alphabet to pack more message characters into a smaller space.
+     * Since the alphabet only contains 128 symbols, each one can be represented
+     * in 7 bits. The packing algorithm squeezes the bits for each symbol
+     * "down" into the preceeding byte (so bit 7 of the first byte actually
+     * contains bit 0 of the second symbol in a default alphabet string, bits
+     * 6 and 7 in the second byte contain bits 0 and 1 of the third symbol etc.)
+     * Since the maximum short message length is 140 <b>bytes</b>, you save
+     * one bit per byte using the default alphabet giving you a total of
+     * 140 + (140 / 8) = 160 characters to use. This is where the 160 character
+     * limit comes from in SMPP packets.
+     * <p>
+     * Having said all that, most SMSCs do <b>NOT</b> use the packing
+     * algorithm when communicating over TCP/IP. They either use a full
+     * 8-bit alphabet such as ASCII or Latin-1, or they accept the default
+     * alphabet in its unpacked form. As such, you will be unlikely to
+     * need this method.
+     * </o>
+     * @param unpacked The unpacked byte array.
+     * @param bitpos The bit position to start from (pad udh)
+     * @return A new byte array containing the bytes in their packed form.
+     */
+    static public byte[] pack(byte[] unpacked, int bitpos) {
         if (unpacked == null) {
             return null;
         }
@@ -61,7 +89,6 @@ public class GSMBitPacker {
 
         int len = unpacked.length;
         int current = 0;
-        int bitpos = 0;
         for (int i = 0; i < len; i++) {
             byte b = (byte)(unpacked[i] & 0x7F); // remove top bit
             // assign first half of partial bits
